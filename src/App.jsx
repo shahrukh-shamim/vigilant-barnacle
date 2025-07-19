@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     // Call FastAPI `/welcome-info` endpoint to get cookie + product/category info
-    fetch("http://localhost:8000/welcome-info", { credentials: "include" })
+    fetch(import.meta.env.VITE_API_BASE_URL + "/welcome-info", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         setIsFirstVisit(data.is_first_visit);
