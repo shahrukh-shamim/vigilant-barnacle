@@ -13,10 +13,11 @@ const ChatBox = () => {
     setInput("");
 
     try {
-      const response = await fetch( import.meta.env.VITE_API_BASE_URL + "/chat", {
+      const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
+        credentials: "include", // This will send cookies from the browser
       });
       const data = await response.json();
       setMessages((prev) => [...prev, { sender: "Assistant", text: data.reply }]);
