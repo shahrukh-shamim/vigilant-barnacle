@@ -3,12 +3,17 @@ import React, { useState } from "react";
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-
+  let context = "";
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
     const userMessage = input.trim();
+    let reqBody = { message: userMessage }
+    if (context) {
+      alert(`Context is being sent: ${context}`)
+      reqBody.context = context;
+    }
     setMessages((prev) => [...prev, { sender: "You", text: userMessage }]);
     setInput("");
 
@@ -20,7 +25,8 @@ const ChatBox = () => {
         credentials: "include", // This will send cookies from the browser
       });
       const data = await response.json();
-      setMessages((prev) => [...prev, { sender: "Assistant", text: data.reply }]);
+      setMessages((prev) => [...prev, { sender: "Rabia store", text: data.reply }]);
+      context += ("\n" + (data.reply) || "");
     } catch {
       setMessages((prev) => [
         ...prev,
