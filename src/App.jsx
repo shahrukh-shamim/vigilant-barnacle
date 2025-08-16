@@ -16,31 +16,31 @@ function App() {
         if (!lastVisit) {
           setCookie('last_visit', Date.now(), 36500); // 100 years
           setIsFirstVisit(true); // Set to true if no cookie exists
+
+          // Set identifier on the server
+          const identifierResponse = await fetch(import.meta.env.VITE_API_BASE_URL + "/set-identifier", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include", // This will send cookies from the browser
+          });
+
+          if (!identifierResponse.ok) {
+            throw new Error('Failed to set identifier');
+          }
+
+          // Get welcome info after setting identifier
+          const welcomeResponse = await fetch(import.meta.env.VITE_API_BASE_URL + "/welcome-info", { 
+            credentials: "include" 
+          });
+
+          if (!welcomeResponse.ok) {
+            throw new Error('Failed to fetch welcome info');
+          }
+
+          const data = await welcomeResponse.json();
+          setTotalProducts(data.total_products);
+          setTotalCategories(data.total_categories);
         }
-
-        // Set identifier on the server
-        const identifierResponse = await fetch(import.meta.env.VITE_API_BASE_URL + "/set-identifier", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include", // This will send cookies from the browser
-        });
-
-        if (!identifierResponse.ok) {
-          throw new Error('Failed to set identifier');
-        }
-
-        // Get welcome info after setting identifier
-        const welcomeResponse = await fetch(import.meta.env.VITE_API_BASE_URL + "/welcome-info", { 
-          credentials: "include" 
-        });
-
-        if (!welcomeResponse.ok) {
-          throw new Error('Failed to fetch welcome info');
-        }
-
-        const data = await welcomeResponse.json();
-        setTotalProducts(data.total_products);
-        setTotalCategories(data.total_categories);
 
       } catch (error) {
         console.error('Error initializing app:', error);
