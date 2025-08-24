@@ -8,15 +8,18 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
   const [input, setInput] = useState("");
   const [context, setContext] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
-  const [showHistory, setShowHistory] = useState(true);
+  const [showHistory, setShowHistory] = useState(false);
+  const [lastMessage, setLastMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+    if (isChatLoading) return;
 
     const userMessage = input.trim();
     let reqBody = { message: userMessage }
     let products = [];
+
     if (context) {
       reqBody.context = context;
     }
@@ -34,6 +37,7 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
       const data = await response.json();
       console.log("Response data:", data);
       products = data.products || [];
+      setLastMessage(data.reply || "No response received");
       setMessages((prev) => [...prev, { sender: "Rabia store", text: data.reply }]);
       setContext(() => "\n" + (data.reply || ""));
       if (products.length > 0) {
@@ -76,6 +80,28 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
         </button>
       </div>
       
+      {
+        !showHistory &&
+        <div style={{ 
+          backgroundColor: theme.colors.backgroundSecondary,
+          border: `1px solid ${theme.colors.border}`,
+          borderRadius: '8px',
+          padding: '12px',
+          marginBottom: '12px',
+          minHeight: '40px'
+        }}> 
+          <p style={{ 
+            margin: 0, 
+            color: theme.colors.text,
+            fontStyle: lastMessage ? 'normal' : 'italic',
+            opacity: lastMessage ? 1 : 0.6,
+            textAlign: 'center'
+          }}>
+            {lastMessage || ""}
+          </p> 
+        </div>
+      }
+
       <div
         className="chat-log"
         style={{ 
