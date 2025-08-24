@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import WelcomeMessage from "./components/WelcomeMessage";
 import ChatBox from "./components/ChatBox";
 import Products from "./components/Products";
+import LoadingSpinner from "./components/LoadingSpinner";
 import { getCookie, setCookie } from "./utils/cookies"; // Import any utility functions if needed
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalCategories, setTotalCategories] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -46,6 +48,8 @@ function App() {
 
       } catch (error) {
         console.error('Error initializing app:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -54,17 +58,31 @@ function App() {
 
   return (
     <>
-      { products.length > 0 ? (
-        <Products products={products} />
-      ) : (
-        <WelcomeMessage
-          isFirstVisit={isFirstVisit}
-          totalProducts={totalProducts}
-          totalCategories={totalCategories}
+      {isLoading && (
+        <LoadingSpinner 
+          type="clip" 
+          color="#3b82f6" 
+          size={40} 
+          text="Loading application..." 
+          overlay={true} 
         />
       )}
-      <ChatBox onResults={(items) => setProducts(items || [])}
-        onClear={() => setProducts([])} />
+      
+      { products.length > 0
+        ? <Products products={products} />
+        : <WelcomeMessage
+              isFirstVisit={isFirstVisit}
+              totalProducts={totalProducts}
+              totalCategories={totalCategories}
+          />
+      }
+      
+      {/* ChatBox component. Always visible */}
+      <ChatBox
+        onResults={(items) => setProducts(items || [])}
+        onClear={() => setProducts([])}
+        setIsLoading={setIsLoading}
+      />
     </>
   );
 }

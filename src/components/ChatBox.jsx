@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
-const ChatBox = ({ onResults, onClear }) => {
+const ChatBox = ({ onResults, onClear, setIsLoading }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [context, setContext] = useState("");
+  const [isChatLoading, setIsChatLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ const ChatBox = ({ onResults, onClear }) => {
     }
     setMessages((prev) => [...prev, { sender: "You", text: userMessage }]);
     setInput("");
+    setIsChatLoading(true);
 
     try {
       const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/chat", {
@@ -39,6 +42,8 @@ const ChatBox = ({ onResults, onClear }) => {
         ...prev,
         { sender: "Error", text: "Failed to get response" },
       ]);
+    } finally {
+      setIsChatLoading(false);
     }
   };
 
@@ -54,6 +59,16 @@ const ChatBox = ({ onResults, onClear }) => {
             <strong>{msg.sender}:</strong> {msg.text}
           </div>
         ))}
+        {isChatLoading && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+            <LoadingSpinner 
+              type="beat" 
+              color="#666" 
+              size={8} 
+              text="Rabia store is typing..." 
+            />
+          </div>
+        )}
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -65,7 +80,9 @@ const ChatBox = ({ onResults, onClear }) => {
           style={{ width: "80%" }}
           required
         />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={isChatLoading}>
+          {isChatLoading ? 'Sending...' : 'Send'}
+        </button>
       </form>
     </div>
   );
