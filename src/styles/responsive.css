@@ -1,0 +1,494 @@
+/* Responsive Design System */
+
+/* CSS Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; /* Base font size */
+}
+
+body {
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsive Breakpoints */
+/* Mobile First Approach */
+
+/* Mobile phones: 320px - 480px */
+@media screen and (max-width: 480px) {
+  html { font-size: 14px; }
+}
+
+/* Large phones / Small tablets: 481px - 768px */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  html { font-size: 15px; }
+}
+
+/* Tablets: 769px - 1024px */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  html { font-size: 16px; }
+}
+
+/* Laptops / Desktops: 1025px+ */
+@media screen and (min-width: 1025px) {
+  html { font-size: 16px; }
+}
+
+/* Container System */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Mobile: 320px - 480px */
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+}
+
+/* Large phones: 481px - 768px */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+/* Tablets: 769px - 1024px */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+}
+
+/* Laptops: 1025px+ */
+@media screen and (min-width: 1025px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 2rem;
+  }
+}
+
+/* Responsive App Layout */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Theme Toggle Responsive */
+.theme-toggle-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+@media screen and (max-width: 480px) {
+  .theme-toggle-container {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+/* Welcome Message Responsive */
+.welcome-container {
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  .welcome-container {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .welcome-title {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .welcome-container {
+    margin: 0.75rem;
+    padding: 1.25rem;
+  }
+  
+  .welcome-title {
+    font-size: 1.75rem !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .welcome-title {
+    font-size: 2rem !important;
+  }
+}
+
+/* Chat Container Responsive */
+.chat-container {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .chat-container {
+    margin: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .chat-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+  
+  .chat-header h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .chat-toggle-btn {
+    align-self: flex-end;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .chat-container {
+    margin: 0.75rem;
+    padding: 0.875rem;
+  }
+}
+
+/* Chat Log Responsive */
+.chat-log {
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow-y: auto;
+  transition: all 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 480px) {
+  .chat-log {
+    height: 150px !important; /* Shorter on mobile */
+    padding: 0.5rem !important;
+  }
+  
+  .chat-log.hidden {
+    height: 0 !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .chat-log {
+    height: 175px !important;
+  }
+  
+  .chat-log.hidden {
+    height: 0 !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .chat-log {
+    height: 200px !important;
+  }
+  
+  .chat-log.hidden {
+    height: 0 !important;
+  }
+}
+
+/* Chat Messages Responsive */
+.chat-message {
+  padding: 0.5rem 0.75rem;
+  margin: 0.25rem 0;
+  border-radius: 12px;
+  max-width: 85%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 480px) {
+  .chat-message {
+    max-width: 90%;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .chat-message {
+    max-width: 88%;
+    padding: 0.45rem 0.7rem;
+  }
+}
+
+/* Chat Form Responsive */
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 480px) {
+  .chat-form {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .chat-input {
+    width: 100% !important;
+  }
+  
+  .chat-submit-btn {
+    width: 100%;
+    padding: 0.75rem !important;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .chat-form {
+    gap: 0.75rem;
+  }
+}
+
+/* Products Container Responsive */
+.products-carousel {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .products-carousel {
+    margin: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .products-title {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .products-carousel {
+    margin: 0.75rem;
+    padding: 0.875rem;
+  }
+  
+  .products-title {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* Product Cards Responsive */
+.product-card {
+  border-radius: 8px;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 480px) {
+  .product-card {
+    padding: 0.75rem;
+    border-radius: 6px;
+  }
+  
+  .product-image {
+    height: 150px !important;
+  }
+  
+  .product-name {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .product-brand {
+    font-size: 0.8rem !important;
+  }
+  
+  .product-price {
+    font-size: 1.1rem !important;
+  }
+  
+  .product-description {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .product-card {
+    padding: 0.875rem;
+  }
+  
+  .product-image {
+    height: 175px !important;
+  }
+  
+  .product-name {
+    font-size: 1.1rem !important;
+  }
+  
+  .product-price {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Swiper Responsive Overrides */
+@media screen and (max-width: 480px) {
+  .swiper {
+    padding-bottom: 2rem !important;
+  }
+  
+  .swiper-pagination {
+    bottom: 0 !important;
+  }
+  
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important; /* Hide navigation arrows on mobile */
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 18px !important;
+  }
+}
+
+/* Loading Spinner Responsive */
+.loading-spinner-container {
+  padding: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .loading-overlay {
+    padding: 0.5rem;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Utility Classes */
+.hide-mobile {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+.text-center-mobile {
+  text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+  .text-center-mobile {
+    text-align: center !important;
+  }
+}
+
+/* Touch Friendly Interactive Elements */
+@media screen and (max-width: 768px) {
+  button, .button, input[type="submit"] {
+    min-height: 44px; /* Apple's recommended touch target size */
+    min-width: 44px;
+  }
+  
+  .themed-button {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+  }
+  
+  .themed-input {
+    padding: 0.75rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* Landscape Orientation for Mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .welcome-container {
+    padding: 1rem;
+  }
+  
+  .chat-log {
+    height: 120px !important;
+  }
+  
+  .products-carousel {
+    padding: 0.5rem;
+  }
+}
+
+/* High DPI Displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+       screen and (min-resolution: 192dpi) {
+  .product-image img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .theme-toggle-container,
+  .chat-container,
+  .swiper-pagination,
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+  
+  .products-carousel {
+    break-inside: avoid;
+  }
+  
+  .product-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}

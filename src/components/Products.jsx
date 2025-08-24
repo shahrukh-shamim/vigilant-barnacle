@@ -13,29 +13,52 @@ export default function Products({ products = [] }) {
   if (!products.length) return null;
 
   return (
-    <div className="products-carousel" style={{ margin: '16px', padding: '16px' }}>
-      <h2 style={{ color: theme.colors.text, marginBottom: '20px', textAlign: 'center' }}>
+    <div className="products-carousel">
+      <h2 className="products-title" style={{ color: theme.colors.text, marginBottom: '20px', textAlign: 'center' }}>
         Products Found
       </h2>
       <Swiper
         modules={[Navigation, Pagination]}
-        spaceBetween={20}
+        spaceBetween={16}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
         breakpoints={{
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
+          320: { 
+            slidesPerView: 1,
+            spaceBetween: 12
+          },
+          480: { 
+            slidesPerView: 1.5,
+            spaceBetween: 14
+          },
+          640: { 
+            slidesPerView: 2,
+            spaceBetween: 16
+          },
+          768: { 
+            slidesPerView: 2.5,
+            spaceBetween: 18
+          },
+          1024: { 
+            slidesPerView: 3,
+            spaceBetween: 20
+          },
+          1200: { 
+            slidesPerView: 3.5,
+            spaceBetween: 22
+          }
         }}
         style={{
           '--swiper-navigation-color': theme.colors.primary,
           '--swiper-pagination-color': theme.colors.primary,
+          paddingBottom: '2rem'
         }}
       >
         {products.map((p) => (
           <SwiperSlide key={p.id}>
             <div className="product-card themed-card">
-              <div className="image-container" style={{ marginBottom: '12px' }}>
+              <div className="image-container product-image" style={{ marginBottom: '12px' }}>
                 <img
                   className="slide-img"
                   src={`${import.meta.env.VITE_API_BASE_URL}/static/products/${p.img_url}`}
@@ -51,7 +74,7 @@ export default function Products({ products = [] }) {
                 />
               </div>
               <div className="slide-meta">
-                <h3 className="name" style={{ 
+                <h3 className="name product-name" style={{ 
                   color: theme.colors.text, 
                   margin: '0 0 8px 0', 
                   fontSize: '18px',
@@ -59,14 +82,14 @@ export default function Products({ products = [] }) {
                 }}>
                   {p.name}
                 </h3>
-                <div className="brand" style={{ 
+                <div className="brand product-brand" style={{ 
                   color: theme.colors.textSecondary, 
                   fontSize: '14px',
                   marginBottom: '4px'
                 }}>
                   {p.brand}
                 </div>
-                <div className="price" style={{ 
+                <div className="price product-price" style={{ 
                   color: theme.colors.primary, 
                   fontSize: '20px',
                   fontWeight: 'bold',
@@ -75,7 +98,7 @@ export default function Products({ products = [] }) {
                   Rs {Number(p.price).toLocaleString()}
                 </div>
                 {p.description && (
-                  <p className="desc" style={{ 
+                  <p className="desc product-description" style={{ 
                     color: theme.colors.textMuted, 
                     fontSize: '14px',
                     lineHeight: '1.4',

@@ -59,11 +59,12 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
   };
 
   return (
-    <div className="chat-container" style={{ margin: '16px', padding: '16px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+    <div className="chat-container">
+      <div className="chat-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
         <h3 style={{ color: theme.colors.text, margin: 0 }}>Need help? Ask something:</h3>
         <button
           onClick={toggleHistory}
+          className="chat-toggle-btn themed-button"
           style={{
             background: 'none',
             border: `1px solid ${theme.colors.border}`,
@@ -103,16 +104,14 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
       }
 
       <div
-        className="chat-log"
+        className={`chat-log ${!showHistory ? 'hidden' : ''}`}
         style={{ 
           border: `1px solid ${theme.colors.chatBorder}`, 
           backgroundColor: theme.colors.chatBackground,
           padding: showHistory ? '12px' : '0',
-          height: showHistory ? '200px' : '0',
           overflowY: 'auto', 
           marginBottom: '12px',
           borderRadius: '8px',
-          transition: 'all 0.4s ease-in-out',
           transform: showHistory ? 'translateY(0)' : 'translateY(-10px)',
           opacity: showHistory ? 1 : 0,
           visibility: showHistory ? 'visible' : 'hidden'
@@ -149,20 +148,20 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
         )}
       </div>
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '8px' }}>
+      <form onSubmit={handleSubmit} className="chat-form">
         <input
           type="text"
           placeholder="Type your question..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="themed-input"
+          className="themed-input chat-input"
           style={{ flex: 1 }}
           required
         />
         <button 
           type="submit" 
           disabled={isChatLoading}
-          className="themed-button"
+          className="themed-button chat-submit-btn"
         >
           {isChatLoading ? 'Sending...' : 'Send'}
         </button>

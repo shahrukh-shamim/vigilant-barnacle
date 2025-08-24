@@ -60,37 +60,39 @@ function App() {
   }, []);
 
   return (
-    <div className="themed-container" style={{ minHeight: '100vh' }}>
-      {/* Theme Toggle Button */}
-      <div className="theme-toggle-container">
-        <ThemeToggle />
-      </div>
+    <div className="app-container themed-container">
+      <div className="container">
+        {/* Theme Toggle Button */}
+        <div className="theme-toggle-container">
+          <ThemeToggle />
+        </div>
 
-      {isLoading && (
-        <LoadingSpinner 
-          type="clip" 
-          color={theme.colors.spinner} 
-          size={40} 
-          text="Loading application..." 
-          overlay={true} 
-        />
-      )}
-      
-      { products.length > 0
-        ? <Products products={products} />
-        : <WelcomeMessage
-              isFirstVisit={isFirstVisit}
-              totalProducts={totalProducts}
-              totalCategories={totalCategories}
+        {isLoading && (
+          <LoadingSpinner 
+            type="clip" 
+            color={theme.colors.spinner} 
+            size={40} 
+            text="Loading application..." 
+            overlay={true} 
           />
-      }
-      
-      {/* ChatBox component. Always visible */}
-      <ChatBox
-        onResults={(items) => setProducts(items || [])}
-        onClear={() => setProducts([])}
-        setIsLoading={setIsLoading}
-      />
+        )}
+        
+        { products.length > 0
+          ? <Products products={products} />
+          : <WelcomeMessage
+                isFirstVisit={isFirstVisit}
+                totalProducts={totalProducts}
+                totalCategories={totalCategories}
+            />
+        }
+        
+        {/* ChatBox component. Always visible */}
+        <ChatBox
+          onResults={(items) => setProducts(items || [])}
+          onClear={() => setProducts([])}
+          setIsLoading={setIsLoading}
+        />
+      </div>
     </div>
   );
 }
