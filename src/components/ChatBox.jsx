@@ -8,6 +8,7 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
   const [input, setInput] = useState("");
   const [context, setContext] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
+  const [showHistory, setShowHistory] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,19 +50,46 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
     }
   };
 
+  const toggleHistory = () => {
+    setShowHistory(!showHistory);
+  };
+
   return (
     <div className="chat-container" style={{ margin: '16px', padding: '16px' }}>
-      <h3 style={{ color: theme.colors.text, marginTop: 0 }}>Need help? Ask something:</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+        <h3 style={{ color: theme.colors.text, margin: 0 }}>Need help? Ask something:</h3>
+        <button
+          onClick={toggleHistory}
+          style={{
+            background: 'none',
+            border: `1px solid ${theme.colors.border}`,
+            borderRadius: '6px',
+            color: theme.colors.text,
+            padding: '4px 8px',
+            cursor: 'pointer',
+            fontSize: '12px',
+            transition: 'all 0.3s ease'
+          }}
+          title={showHistory ? 'Hide chat history' : 'Show chat history'}
+        >
+          {showHistory ? '🔽 Hide' : '🔼 Show'} History
+        </button>
+      </div>
+      
       <div
         className="chat-log"
         style={{ 
           border: `1px solid ${theme.colors.chatBorder}`, 
           backgroundColor: theme.colors.chatBackground,
-          padding: '12px', 
-          height: '200px', 
+          padding: showHistory ? '12px' : '0',
+          height: showHistory ? '200px' : '0',
           overflowY: 'auto', 
           marginBottom: '12px',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          transition: 'all 0.4s ease-in-out',
+          transform: showHistory ? 'translateY(0)' : 'translateY(-10px)',
+          opacity: showHistory ? 1 : 0,
+          visibility: showHistory ? 'visible' : 'hidden'
         }}
       >
         {messages.map((msg, index) => (
