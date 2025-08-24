@@ -1,70 +1,24 @@
-/* Container + nav */
-.snap-wrapper {
-  position: relative;
-  padding: 8px 36px;            /* space for nav buttons */
-}
-.snap-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  inline-size: 32px;
-  block-size: 32px;
-  border-radius: 999px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  font-size: 20px;
-  line-height: 1;
-  user-select: none;
-}
-.snap-nav.left { left: 4px; }
-.snap-nav.right { right: 4px; }
-.snap-nav:disabled { opacity: 0.4; cursor: default; }
-
-/* Track + slides */
-.snap-track {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 6px 0;
-  scroll-padding-inline: 8px;
-  justify-content: center;
-}
-.snap-track::-webkit-scrollbar { height: 8px; }
-.snap-track::-webkit-scrollbar-thumb {
-  background: #d9d9d9; border-radius: 8px;
-}
-
-/* Card */
-.snap-slide {
-  flex: 0 0 260px;              /* slide width */
-  scroll-snap-align: start;
+.product-card {
   border: 1px solid #eee;
   border-radius: 12px;
-  background: #fff;
   padding: 12px;
+  background: #fff;
+  text-align: center;
 }
+
 .image-container {
-  inline-size: 100%;
-  block-size: 200px;
-  display: grid;
-  place-items: center;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .slide-img {
-  max-inline-size: 100%;
-  max-block-size: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
-.slide-meta { text-align: center; }
-.name { font-weight: 700; margin: 6px 0 2px; }
-.brand { color: #777; font-size: 0.9rem; }
-.price { color: #0a7c2f; font-weight: 600; margin-top: 4px; }
-.desc { color: #555; font-size: 0.9rem; margin-top: 8px; }
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
-  .snap-slide { flex-basis: 80%; } /* larger slide on small screens */
+.price {
+  color: green;
+  font-weight: bold;
+  margin-top: 8px;
 }
