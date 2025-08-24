@@ -1,18 +1,23 @@
 import React from 'react';
 import { ClipLoader, BeatLoader, PulseLoader, DotLoader } from 'react-spinners';
+import { useTheme } from '../contexts/ThemeContext';
 
 const LoadingSpinner = ({ 
   type = 'clip', 
-  color = '#3b82f6', 
+  color, 
   size = 50, 
   text = 'Loading...', 
   overlay = false 
 }) => {
+  const { theme } = useTheme();
+  
+  // Use theme color if no color is provided
+  const spinnerColor = color || theme.colors.spinner;
   const spinnerComponents = {
-    clip: <ClipLoader color={color} size={size} />,
-    beat: <BeatLoader color={color} size={size} />,
-    pulse: <PulseLoader color={color} size={size} />,
-    dot: <DotLoader color={color} size={size} />
+    clip: <ClipLoader color={spinnerColor} size={size} />,
+    beat: <BeatLoader color={spinnerColor} size={size} />,
+    pulse: <PulseLoader color={spinnerColor} size={size} />,
+    dot: <DotLoader color={spinnerColor} size={size} />
   };
 
   const spinner = spinnerComponents[type] || spinnerComponents.clip;
@@ -32,7 +37,7 @@ const LoadingSpinner = ({
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: theme.colors.background + 'E6', // Add transparency
     zIndex: 9999,
     display: 'flex',
     alignItems: 'center',
@@ -41,7 +46,7 @@ const LoadingSpinner = ({
 
   const textStyle = {
     fontSize: '16px',
-    color: '#6b7280',
+    color: theme.colors.textSecondary,
     fontWeight: '500'
   };
 

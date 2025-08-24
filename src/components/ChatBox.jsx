@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import { useTheme } from "../contexts/ThemeContext";
 
 const ChatBox = ({ onResults, onClear, setIsLoading }) => {
+  const { theme } = useTheme();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [context, setContext] = useState("");
@@ -48,22 +50,44 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
   };
 
   return (
-    <div id="chat-box">
-      <h3>Need help? Ask something:</h3>
+    <div className="chat-container" style={{ margin: '16px', padding: '16px' }}>
+      <h3 style={{ color: theme.colors.text, marginTop: 0 }}>Need help? Ask something:</h3>
       <div
-        id="chat-log"
-        style={{ border: "1px solid #ccc", padding: 10, height: 200, overflow: "auto", marginBottom: 10 }}
+        className="chat-log"
+        style={{ 
+          border: `1px solid ${theme.colors.chatBorder}`, 
+          backgroundColor: theme.colors.chatBackground,
+          padding: '12px', 
+          height: '200px', 
+          overflowY: 'auto', 
+          marginBottom: '12px',
+          borderRadius: '8px'
+        }}
       >
         {messages.map((msg, index) => (
-          <div key={index}>
-            <strong>{msg.sender}:</strong> {msg.text}
+          <div 
+            key={index} 
+            className={`chat-message ${msg.sender === 'You' ? 'user' : 'bot'}`}
+            style={{
+              backgroundColor: msg.sender === 'You' ? theme.colors.userMessage : theme.colors.botMessage,
+              color: theme.colors.text,
+              padding: '8px 12px',
+              margin: '4px 0',
+              borderRadius: '12px',
+              maxWidth: '80%',
+              marginLeft: msg.sender === 'You' ? 'auto' : '0',
+              marginRight: msg.sender === 'You' ? '0' : 'auto'
+            }}
+          >
+            <strong style={{ color: theme.colors.text }}>{msg.sender}:</strong>{' '}
+            <span style={{ color: theme.colors.text }}>{msg.text}</span>
           </div>
         ))}
         {isChatLoading && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
             <LoadingSpinner 
               type="beat" 
-              color="#666" 
+              color={theme.colors.spinner} 
               size={8} 
               text="Rabia store is typing..." 
             />
@@ -71,16 +95,21 @@ const ChatBox = ({ onResults, onClear, setIsLoading }) => {
         )}
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '8px' }}>
         <input
           type="text"
           placeholder="Type your question..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          style={{ width: "80%" }}
+          className="themed-input"
+          style={{ flex: 1 }}
           required
         />
-        <button type="submit" disabled={isChatLoading}>
+        <button 
+          type="submit" 
+          disabled={isChatLoading}
+          className="themed-button"
+        >
           {isChatLoading ? 'Sending...' : 'Send'}
         </button>
       </form>

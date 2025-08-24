@@ -1,0 +1,249 @@
+/* Theme-aware CSS using CSS custom properties */
+
+/* Root styles - these will be dynamically updated by ThemeProvider */
+:root {
+  /* Default light theme colors - will be overridden by JS */
+  --color-background: #ffffff;
+  --color-backgroundSecondary: #f8fafc;
+  --color-backgroundTertiary: #f1f5f9;
+  --color-text: #1e293b;
+  --color-textSecondary: #475569;
+  --color-textMuted: #64748b;
+  --color-border: #e2e8f0;
+  --color-borderHover: #cbd5e1;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-primary: #3b82f6;
+  --color-primaryHover: #2563eb;
+  --color-secondary: #6b7280;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-chatBackground: #ffffff;
+  --color-chatBorder: #e5e7eb;
+  --color-userMessage: #e0f2fe;
+  --color-botMessage: #f0f9ff;
+  --color-spinner: #3b82f6;
+}
+
+/* Global theme styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Theme-aware component classes */
+.themed-container {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: all 0.3s ease;
+}
+
+.themed-card {
+  background-color: var(--color-backgroundSecondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px var(--color-shadow);
+  transition: all 0.3s ease;
+}
+
+.themed-card:hover {
+  border-color: var(--color-borderHover);
+  box-shadow: 0 4px 8px var(--color-shadow);
+}
+
+.themed-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.themed-button:hover {
+  background-color: var(--color-primaryHover);
+}
+
+.themed-button:disabled {
+  background-color: var(--color-secondary);
+  cursor: not-allowed;
+}
+
+.themed-input {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.themed-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.themed-input::placeholder {
+  color: var(--color-textMuted);
+}
+
+/* Chat specific styles */
+.chat-container {
+  background-color: var(--color-chatBackground);
+  border: 1px solid var(--color-chatBorder);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.chat-message {
+  padding: 8px 12px;
+  margin: 4px 0;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.chat-message.user {
+  background-color: var(--color-userMessage);
+  margin-left: 20%;
+}
+
+.chat-message.bot {
+  background-color: var(--color-botMessage);
+  margin-right: 20%;
+}
+
+/* Loading spinner theme integration */
+.loading-spinner-container {
+  color: var(--color-textSecondary);
+}
+
+/* Product grid styles */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.product-card {
+  background-color: var(--color-backgroundSecondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px var(--color-shadow);
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border-color: var(--color-borderHover);
+}
+
+/* Welcome message styles */
+.welcome-container {
+  background-color: var(--color-backgroundSecondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px;
+  text-align: center;
+  box-shadow: 0 4px 6px var(--color-shadow);
+  transition: all 0.3s ease;
+}
+
+.welcome-title {
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.welcome-stats {
+  color: var(--color-textSecondary);
+  margin-top: 12px;
+}
+
+/* Responsive theme toggle */
+.theme-toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Dark theme specific adjustments */
+.theme-dark {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-background);
+}
+
+.theme-dark::-webkit-scrollbar {
+  width: 8px;
+}
+
+.theme-dark::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+.theme-dark::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 4px;
+}
+
+.theme-dark::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-borderHover);
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus styles for accessibility */
+.themed-button:focus,
+.themed-input:focus,
+button:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .themed-card {
+    border-width: 2px;
+  }
+  
+  .themed-button {
+    border: 2px solid var(--color-primary);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

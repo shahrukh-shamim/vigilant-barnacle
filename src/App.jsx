@@ -3,9 +3,12 @@ import WelcomeMessage from "./components/WelcomeMessage";
 import ChatBox from "./components/ChatBox";
 import Products from "./components/Products";
 import LoadingSpinner from "./components/LoadingSpinner";
+import ThemeToggle from "./components/ThemeToggle";
+import { useTheme } from "./contexts/ThemeContext";
 import { getCookie, setCookie } from "./utils/cookies"; // Import any utility functions if needed
 
 function App() {
+  const { theme } = useTheme();
   const [products, setProducts] = useState([]);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -57,11 +60,16 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="themed-container" style={{ minHeight: '100vh' }}>
+      {/* Theme Toggle Button */}
+      <div className="theme-toggle-container">
+        <ThemeToggle />
+      </div>
+
       {isLoading && (
         <LoadingSpinner 
           type="clip" 
-          color="#3b82f6" 
+          color={theme.colors.spinner} 
           size={40} 
           text="Loading application..." 
           overlay={true} 
@@ -83,7 +91,7 @@ function App() {
         onClear={() => setProducts([])}
         setIsLoading={setIsLoading}
       />
-    </>
+    </div>
   );
 }
 
