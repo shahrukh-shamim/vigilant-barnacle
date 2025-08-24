@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ChatBox = () => {
+const ChatBox = ({ onResults, onClear }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [context, setContext] = useState("");
@@ -11,6 +11,7 @@ const ChatBox = () => {
 
     const userMessage = input.trim();
     let reqBody = { message: userMessage }
+    let products = [];
     if (context) {
       reqBody.context = context;
     }
@@ -25,9 +26,15 @@ const ChatBox = () => {
         credentials: "include", // This will send cookies from the browser
       });
       const data = await response.json();
+      console.log("Response data:", data);
+      products = data.products || [];
       setMessages((prev) => [...prev, { sender: "Rabia store", text: data.reply }]);
       setContext(() => "\n" + (data.reply || ""));
-    } catch {
+      if (products.length > 0) {
+        onResults(products);
+      }
+    } catch (error) {
+      console.error("Error getting response:", error);
       setMessages((prev) => [
         ...prev,
         { sender: "Error", text: "Failed to get response" },

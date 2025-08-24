@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import WelcomeMessage from "./components/WelcomeMessage";
 import ChatBox from "./components/ChatBox";
+import Products from "./components/Products";
 import { getCookie, setCookie } from "./utils/cookies"; // Import any utility functions if needed
 
 function App() {
+  const [products, setProducts] = useState([]);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalCategories, setTotalCategories] = useState(0);
@@ -52,12 +54,17 @@ function App() {
 
   return (
     <>
-      <WelcomeMessage
-        isFirstVisit={isFirstVisit}
-        totalProducts={totalProducts}
-        totalCategories={totalCategories}
-      />
-      <ChatBox />
+      { products.length > 0 ? (
+        <Products products={products} />
+      ) : (
+        <WelcomeMessage
+          isFirstVisit={isFirstVisit}
+          totalProducts={totalProducts}
+          totalCategories={totalCategories}
+        />
+      )}
+      <ChatBox onResults={(items) => setProducts(items || [])}
+        onClear={() => setProducts([])} />
     </>
   );
 }
