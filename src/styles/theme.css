@@ -40,6 +40,40 @@ body {
   overflow-x: hidden;
 }
 
+/* RTL Support for Arabic and Urdu */
+body[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+body[dir="rtl"] .language-selector-container {
+  left: auto;
+  right: 1rem;
+}
+
+body[dir="rtl"] .theme-toggle-container {
+  right: auto;
+  left: 1rem;
+}
+
+body[dir="rtl"] .chat-header {
+  flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .chat-form {
+  flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .chat-message.user {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+body[dir="rtl"] .chat-message.bot {
+  margin-right: 0;
+  margin-left: auto;
+}
+
 /* Responsive text sizing */
 @media screen and (max-width: 480px) {
   body {

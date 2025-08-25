@@ -97,10 +97,45 @@ body {
   z-index: 1000;
 }
 
+/* Language Selector Responsive */
+.language-selector-container {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+}
+
 @media screen and (max-width: 480px) {
   .theme-toggle-container {
     top: 0.5rem;
     right: 0.5rem;
+  }
+  
+  .language-selector-container {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  
+  .language-selector button {
+    min-width: 100px !important;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+  }
+  
+  .language-selector .flag {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .language-selector-container {
+    top: 0.75rem;
+    left: 0.75rem;
+  }
+  
+  .theme-toggle-container {
+    top: 0.75rem;
+    right: 0.75rem;
   }
 }
 

@@ -4,22 +4,40 @@ import ChatBox from "./components/ChatBox";
 import Products from "./components/Products";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ThemeToggle from "./components/ThemeToggle";
+import LanguageSelector from "./components/LanguageSelector";
 import { useTheme } from "./contexts/ThemeContext";
+import { useLanguage, isRTL } from "./hooks/useLanguage";
 import { getCookie, setCookie } from "./utils/cookies"; // Import any utility functions if needed
 
 function App() {
   const { theme } = useTheme();
+  const currentLanguage = useLanguage();
   const [products, setProducts] = useState([]);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalCategories, setTotalCategories] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Update document direction based on language
+  useEffect(() => {
+    document.body.dir = isRTL(currentLanguage) ? 'rtl' : 'ltr';
+  }, [currentLanguage]);
+
   useEffect(() => {
     const initializeApp = async () => {
       try {
+        // Initialize language cookie to English if not set
+        if (!getCookie('lang')) {
+          setCookie('lang', 'en', 365);
+        }
+        
         // Check if this is the first visit
         const lastVisit = getCookie('last_visit');
+
+        if(!hasCookie('lang')) {
+          setCookie('lang', currentLanguage, 36500); // 100 years
+        }
+
         if (!lastVisit) {
           setCookie('last_visit', Date.now(), 36500); // 100 years
           setIsFirstVisit(true); // Set to true if no cookie exists
@@ -62,6 +80,11 @@ function App() {
   return (
     <div className="app-container themed-container">
       <div className="container">
+        {/* Language Selector */}
+        <div className="language-selector-container">
+          <LanguageSelector />
+        </div>
+        
         {/* Theme Toggle Button */}
         <div className="theme-toggle-container">
           <ThemeToggle />
