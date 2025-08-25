@@ -7,7 +7,7 @@ import ThemeToggle from "./components/ThemeToggle";
 import LanguageSelector from "./components/LanguageSelector";
 import { useTheme } from "./contexts/ThemeContext";
 import { useLanguage, isRTL } from "./hooks/useLanguage";
-import { getCookie, setCookie } from "./utils/cookies"; // Import any utility functions if needed
+import { getCookie, setCookie, hasCookie } from "./utils/cookies"; // Import any utility functions if needed
 
 function App() {
   const { theme } = useTheme();
