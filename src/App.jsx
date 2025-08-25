@@ -26,10 +26,6 @@ function App() {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        // Initialize language cookie to English if not set
-        if (!getCookie('lang')) {
-          setCookie('lang', 'en', 365);
-        }
         
         // Check if this is the first visit
         const lastVisit = getCookie('last_visit');
